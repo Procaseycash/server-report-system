@@ -152,7 +152,7 @@
         <div class="card shadow mb-4">
             <!-- Card Header - Dropdown -->
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Service Summary of Report</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Service Summary Report</h6>
             </div>
             <!-- Card Body -->
             <div class="card-body">
@@ -181,7 +181,7 @@
                     <option value="Success">Successful Services </option>
                     <option value="Failed">Failed Services </option>
                     <option value="Unimplemented">Unimplemented Report Service</option>
-                    <option value="Alerts">Services with Alerts</option>
+                    <option value="Alert">Services with Alerts</option>
                 </select>
             </div>
         </div>
@@ -237,6 +237,13 @@
     </div>
 </div>
 <!--End Report Node Checks Data Information-->
+
+<div id="overlay" class="overlay center d-none">
+    <div class="position-relative">
+        <img src="./images/loader.gif" alt="Loading...">
+        <h3 class="mt-3">Fetching reports, please wait for some few seconds</h3>
+    </div>
+</div>
 
 
 <!--Import scripts from static server-side-->

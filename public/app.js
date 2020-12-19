@@ -47,6 +47,29 @@ function showGraph() {
  */
 function showServiceFilter() {
     var type = $('#filterService').val();
+    var tableBody = $('#report-table-body');
+    if (type === 'All') {
+        tableBody.html('');
+        generateReportTable(reports.service_reports);
+        return;
+    }
+    var data = reports.service_reports.filter(function (report) {
+        if (type === 'Success') {
+            return report.status_code < 400
+        }
+
+        if (type === 'Alert') {
+            return report.total_alerts > 0;
+        }
+
+        if (type === 'Unimplemented') {
+            return report.status_code === 501;
+        }
+
+        return (report.status_code >= 400 && report.status_code !== 501) || typeof report.status_code === 'string'; //failed
+    });
+    tableBody.html('');
+    generateReportTable(data);
 }
 
 /**
@@ -67,8 +90,9 @@ function plotChart(pieChartData, areaChartData) {
 function getStatusReport() {
     reports = CacheUtil.get(REPORT_STATUS_KEY);
     if (reports) {
-        generateReportTable();
+        generateReportTable(reports.service_reports);
         generateStatistics();
+        $('#overlay').addClass('d-none');
         return;
     }
     reportTrail++;
@@ -76,24 +100,26 @@ function getStatusReport() {
         reports = res.data; // store report globally
         CacheUtil.set(REPORT_STATUS_KEY, reports); // implemented caching to reduce load on the server at every refresh
         reportTrail = 0;
-        generateReportTable(); // populate table view.
+        generateReportTable(reports.service_reports); // populate table view.
         generateStatistics();
+        $('#overlay').addClass('d-none');
     }).catch(function (err) {
-        if (reportTrail > 3) {
+        if (reportTrail > 5) {
+            $('#overlay').addClass('d-none');
+            alert("Error Occurred while trying to get report status using job identification, please refresh... Thank you");
             return;
         }
         getStatusReport(); // get status report after few seconds
-        console.log( 'ErrorStatusReporting=', err.responseJSON );
     })
 }
 
 /**
  *  This is used to generate table data.
  */
-function generateReportTable() {
+function generateReportTable(data) {
     if (!reports) return;
     var tableBody = $('#report-table-body');
-    reports.service_reports.forEach(function (report, index) {
+    data.forEach(function (report, index) {
         tableBody.append(
             "<tr>" +
             "<td>" + (index + 1) + "</td>" +
@@ -179,18 +205,15 @@ function refreshReport() {
  */
 function retryReport() {
     reportTrail = 0;
+    $('#overlay').removeClass('d-none');
     getStatusReport();
-}
-
-
-function ModalClose(id) {
-    $('#' + id).modal('hide');
 }
 
 /**
  * This is application initialization entry point.
  */
 function initApp() {
+    $('#overlay').removeClass('d-none');
     reportTrail = 0;
     reportJob = CacheUtil.get(REPORT_JOB_KEY);
     if (reportJob) {
@@ -205,7 +228,8 @@ function initApp() {
             getStatusReport(); // get status report after few seconds
         }, 3000);
     } ).catch( function (err) {
-        console.log( 'ErrorReporting=', err.responseJSON );
+        $('#overlay').addClass('d-none');
+        alert("Error Occurred while trying to get report job identification, please refresh... Thank you");
     } );
 }
 

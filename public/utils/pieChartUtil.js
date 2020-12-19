@@ -7,7 +7,7 @@ function plotPieChart(data) {
     var myPieChart = new Chart( ctx, {
         type: 'doughnut',
         data: {
-            labels: ["Successful (" + data.success + ")", "Failed (" + data.failed + ")", "Unimplemented (" + data.failed + ")"],
+            labels: ["Successful", "Failed", "Unimplemented"],
             datasets: [{
                 data: [data.success, data.failed, data.unimplemented],
                 backgroundColor: ['#1cc88a', '#e74a3b', '#f6c23e'],
