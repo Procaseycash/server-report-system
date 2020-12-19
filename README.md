@@ -10,7 +10,7 @@ $ npm run start
 ```
 
 ### Access the App launch
-Visit http://localhost:30001/ to see the app.
+Visit http://localhost:3001/ to see the app.
 
 ### Libraries
 All library usage can be found in `package.json`
