@@ -1,7 +1,7 @@
-##Report System
+## Report System
 This application uses `express-generator` to scaffold the application structure which was later modified.
 
-###Setup and Running of the app
+### Setup and Running of the app
 All that is needed to be done is:
 
 ```
@@ -9,13 +9,13 @@ $ npm install
 $ npm run start
 ```
 
-###Access the App launch
+### Access the App launch
 Visit http://localhost:30001/ to see the app.
 
-###Libraries
+### Libraries
 All library usage can be found in `package.json`
 
-###Client App
+### Client App
 The client app is a static html files for interfacing with the middleware APIs created on the server side. The structure of the client app is as follows:
 ```
 public/
@@ -28,7 +28,7 @@ public/
     index.html
 ```
 
-###Server Side
+### Server Side
 This is where the backend system is created to interface with the client. The structure of the server side is as follows:
 ```
 server/
@@ -43,10 +43,10 @@ server/
     server.js/
 ```
 
-###Environment
+### Environment
 Made use of environment system called `.env` to handle some global configuration for the server side through the `dotenv` library.
 
-###Choice of setup
+### Choice of setup
     1. Favoured application decoupling.
     2. Easy to manage, maintainability and ease for new developer to join with less work through.
     3. Applied MVC pattern
