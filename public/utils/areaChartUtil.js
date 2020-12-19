@@ -8,7 +8,6 @@ var myAreaChart = null;
 function plotAreaChart(data, plotType) {
     if (!data) return;
     if (Chart.plotType === plotType) return;
-    console.log('dataLen=', data.length, plotType);
     plotType = plotType ? plotType : 'Alert'; // Alert, Checks, Nodes.
     Chart.plotType = plotType;
     var title = plotType === 'Alert' ? 'Total Alerts' : plotType === 'Checks' ? 'Total Node Checks' : 'Total Nodes';
@@ -30,13 +29,11 @@ function plotAreaChart(data, plotType) {
     });
 
     if (myAreaChart) {
-        console.log('myAreaChart.data.dataset=', myAreaChart.data.datasets.length);
         myAreaChart.data.datasets[0].data = results;
         myAreaChart.data.datasets[0].label = title;
         myAreaChart.update();
         return;
     }
-    console.log('Once');
     var ctx = document.getElementById( 'myAreaChart' );
     myAreaChart = new Chart( ctx, {
         type: 'line',

@@ -25,7 +25,6 @@ function generateStatistics() {
         return result;
     }, {success: 0, failed: 0, unimplemented: 0});
     var unImplementedPercent = Math.ceil(data.unimplemented / reports.service_reports.length * 100) + '%';
-    console.log('TotalCounts=', data, unImplementedPercent);
     $('#successService').html(data.success || 0);
     $('#failedService').html(data.failed || 0);
     $('#unimplementedService').html(unImplementedPercent);

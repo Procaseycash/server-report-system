@@ -23,6 +23,5 @@ var apiService = {
 };
 
 function errorCheck(error) {
-    console.log('error=', error);
     return error.fail();
 }
