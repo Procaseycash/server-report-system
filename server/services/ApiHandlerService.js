@@ -28,7 +28,6 @@ const processRequest = async (method = 'POST', url = '', body = {}) => {
        }
        if (!['GET', 'DELETE'].includes(method)) {
            config.body = JSON.stringify(body);
-           console.log('body=', body);
        }
        const res = await fetch(url, config);
        const result = await res.json();
@@ -37,7 +36,7 @@ const processRequest = async (method = 'POST', url = '', body = {}) => {
        }
        return result;
    } catch ( e ) {
-       console.log('E=', e.message);
+       console.log('Error=', e.message);
        throw new Error(e.message);
    }
 };
