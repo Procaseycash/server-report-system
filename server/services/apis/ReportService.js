@@ -3,7 +3,7 @@ const ApiService = require( '../ApiHandlerService' );
 
 class ReportService {
 
-    static async getReports() {
+    static async getReport() {
         return ApiService.post(ENV.REPORT_API);
     }
 

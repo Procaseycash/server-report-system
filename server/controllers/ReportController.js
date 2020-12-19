@@ -13,9 +13,9 @@ class ReportController {
        }
     }
 
-    static async getReports(req, res) {
+    static async getReport(req, res) {
         try {
-            const data = await ReportService.getReports();
+            const data = await ReportService.getReport();
             ResponseHandler.success(res, data, messages.report);
         } catch (e) {
             ResponseHandler.error(res, e.message);
