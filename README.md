@@ -54,5 +54,5 @@ Made use of environment system called `.env` to handle some global configuration
   
     
 ### Choice on Storage for AccessToken
-The use file system to avoid too many setup for in-memory cache like `redis` and store the token in `configs/secrets.json` then we can retrieve whenever it is needed to make other request.
-We check token expiration at every request made from the `json` stored and whenever token expires, Call is made to refresh for a new token and we store before we proceed to perform the actual request. The storing of the refresh token is asynchronous to avoid delay in API request cycle.     
+The use file system is implored to avoid too many setup for in-memory cache like `redis` and the token stored in `configs/secrets.json` so that we can retrieve whenever it is needed to make other requests.
+We check token expiration at every request made from the `json` stored and once the token expires, a call is made to refresh the token and we store the new token before we proceed to perform the actual request. The storing of the refreshed token is asynchronous to avoid delay in API request cycle.     
