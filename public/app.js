@@ -73,8 +73,8 @@ function generateReportTable() {
             "<td>" + (new Date(report.requested_at).toUTCString()) + "</td>" +
             "<td>" + (new Date(report.completed_at).toUTCString()) + "</td>" +
             "<td>" + ( report.nodes.length ?
-            "<button class='btn btn-primary btn-sm' onclick='viewNodeCheck(" + JSON.stringify(report) + ")'> View Checks" + "</button>"
-            : 'No Checks' ) +"</td>" +
+            "<button class='btn btn-primary btn-sm' onclick='viewNodeDetail(" + JSON.stringify(report) + ")'> View Node" + "</button>"
+            : 'No Nodes' ) +"</td>" +
             "</tr>"
         )
     });
@@ -83,37 +83,42 @@ function generateReportTable() {
 /**
  * This is used to view node statuses and parts
  */
-function viewNodeCheck(report) {
-    console.log('Report=', report);
+function viewNodeDetail(report) {
 
     if (!report || !report.nodes) return;
     $('#checksModalTitle').html(report.host.name + "'s Detail Report");
     var tableBody = $('#node-table-body');
-    report.nodes.forEach(function (node, index) {
+
+    function getNodeChecks(node) {
         var tableChecks = '-';
-        if (node.checks && node.checks.length) {
-            var checks = node.checks.reduce((result, check) => {
-                result += "<tr>" +
-                    "<td>" + check.name + "</td>" +
-                    "<td>" + check.state + "</td>" +
-                    "<td>" + check.message + "</td>" +
-                    "<td>" + check.started_at + "</td>" +
-                    "<td>" + check.completed_at + "</td>" +
-                    "</tr>";
+        if ( node.checks && node.checks.length ) {
+            var checks = node.checks.reduce( (result, check) => {
+                result += '<tr>' +
+                    '<td>' + check.name + '</td>' +
+                    '<td>' + check.state + '</td>' +
+                    '<td>' + check.message + '</td>' +
+                    '<td>' + check.started_at + '</td>' +
+                    '<td>' + check.completed_at + '</td>' +
+                    '</tr>';
                 return result;
-            }, '');
-            tableChecks = "<table width='100%'>" +
-                "<tr>" +
-                "<th width='25%'>Name</th>" +
-                "<th width='10%'>State</th>" +
-                "<th width='35%'>Message</th>" +
-                "<th width='15%'>Started At</th>" +
-                "<th width='15%'>Completed At</th>" +
-                "</tr>" +
+            }, '' );
+            tableChecks = '<table width=\'100%\'>' +
+                '<tr>' +
+                '<th width=\'25%\'>Name</th>' +
+                '<th width=\'10%\'>State</th>' +
+                '<th width=\'35%\'>Message</th>' +
+                '<th width=\'15%\'>Started At</th>' +
+                '<th width=\'15%\'>Completed At</th>' +
+                '</tr>' +
                 checks
                 +
-                "</table>";
+                '</table>';
         }
+        return tableChecks;
+    }
+
+    report.nodes.forEach(function (node, index) {
+        var tableChecks = getNodeChecks( node );
         tableBody.append(
             "<tr>" +
             "<td>" + (index + 1) + "</td>" +
