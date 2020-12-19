@@ -1,10 +1,5 @@
 "use strict";
 
-//TODO: Graph representation and data overview
-//TODO: Loading View for the app
-//TODO: Error Checking Update.
-
-
 var reports = {
     service_reports: []
 };
