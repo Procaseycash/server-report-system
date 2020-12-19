@@ -36,7 +36,6 @@ const processRequest = async (method = 'POST', url = '', body = {}) => {
        }
        return result;
    } catch ( e ) {
-       console.log('Error=', e.message);
        throw new Error(e.message);
    }
 };
