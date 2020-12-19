@@ -18,7 +18,7 @@ function plotAreaChart(data, plotType) {
         }
         if (plotType === 'Checks') {
             if (report.nodes && report.nodes.length) {
-                return report.nodes.reduce((a, b) => {
+                return report.nodes.reduce(function(a, b) {
                     var first =  a.checks ? a.checks.length : 0;
                     var second =  b.checks ? b.checks.length : 0;
                     return first + second;

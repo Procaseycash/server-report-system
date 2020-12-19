@@ -124,7 +124,7 @@ function viewNodeDetail(report) {
     function getNodeChecks(node) {
         var tableChecks = '-';
         if ( node.checks && node.checks.length ) {
-            var checks = node.checks.reduce( (result, check) => {
+            var checks = node.checks.reduce( function(result, check) {
                 result += '<tr>' +
                     '<td>' + check.name + '</td>' +
                     '<td>' + check.state + '</td>' +
