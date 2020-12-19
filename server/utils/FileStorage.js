@@ -7,7 +7,6 @@ class FileStorage {
 
     static async store(data, fileName = 'secrets') {
         fileName = `${this.filePath}/${fileName}.json`;
-        console.log('fileName=', fileName);
         fs.writeFile(fileName, JSON.stringify( data ), (err) => err);
         return data;
     }
