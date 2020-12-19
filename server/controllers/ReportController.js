@@ -6,7 +6,7 @@ class ReportController {
 
     static async getReportStatus(req, res) {
        try {
-           const data = await ReportService.getReportStatus(req.param.id);
+           const data = await ReportService.getReportStatus(req.params.id);
            ResponseHandler.success(res, data, messages.reportStatus);
        } catch (e) {
            ResponseHandler.error(res, e.message);

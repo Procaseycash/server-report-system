@@ -1,3 +1,5 @@
+const FileStorage = require('./FileStorage');
+
 const Utils = {
   timeDiff: (aheadTime) => new Date(aheadTime).getTime() - new Date().getTime(),
   isTokenExpires: () => {
@@ -6,4 +8,4 @@ const Utils = {
   }
 };
 
-module.exports = {Utils};
+module.exports = {Utils, FileStorage};
