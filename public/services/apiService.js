@@ -24,5 +24,5 @@ var apiService = {
 
 function errorCheck(error) {
     console.log('error=', error);
-    throw new Error(error.message);
+    return error.fail();
 }

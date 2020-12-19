@@ -5,7 +5,7 @@ function initApp() {
         // process report here
         console.log('Response=', res);
     } ).catch( function (err) {
-        console.log( 'ErrorReport=', err );
+        console.log( 'ErrorReport=', err.responseJSON );
     } );
 }
 
