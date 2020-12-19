@@ -13,6 +13,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use('/jquery', express.static(path.join(__dirname, '../node_modules/jquery/dist/'))); // make jquery available on public client app
 app.use('/bootstrap', express.static(path.join(__dirname, '../node_modules/bootstrap/dist/'))); // make bootstrap available on public client app
+app.use('/chart', express.static(path.join(__dirname, '../node_modules/chart.js/dist/'))); // make chart.js available on public client app
 app.use(express.static(path.join(__dirname, '../public')));
 
 AppRoute.init(app); // initialize app routing

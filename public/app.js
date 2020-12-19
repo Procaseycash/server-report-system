@@ -13,6 +13,53 @@ var reportJob = {job_id: null};
 
 var reportTrail = 0;
 
+/**
+ * Total Counts Card implementation
+ */
+function generateStatistics() {
+    $('#totalAlerts').html(reports.total_alerts || 0);
+    var data = reports.service_reports.reduce(function (result, data) {
+        result.success += ( data.status_code < 400 ? 1 : 0);
+        result.failed += ( (data.status_code >= 400 && data.status_code !== 501) || typeof data.status_code === 'string' ? 1 : 0);
+        result.unimplemented += ( data.status_code === 501 ? 1 : 0);
+        return result;
+    }, {success: 0, failed: 0, unimplemented: 0});
+    var unImplementedPercent = Math.ceil(data.unimplemented / reports.service_reports.length * 100) + '%';
+    console.log('TotalCounts=', data, unImplementedPercent);
+    $('#successService').html(data.success || 0);
+    $('#failedService').html(data.failed || 0);
+    $('#unimplementedService').html(unImplementedPercent);
+    $('#progressbarUnimplemented').attr('aria-valuenow',  data.unimplemented || 0).css('width', unImplementedPercent);
+    $('#summaryNow').html('Detailed Summary Report for ' + new Date(reports.requested_at).toDateString());
+    plotChart(data, reports.service_reports);
+}
+
+/**
+ * Show Area Graph type
+ */
+function showGraph() {
+    var type = $('#plotType').val();
+    plotAreaChart(reports.service_reports, type);
+}
+
+/**
+ * Show Service based on filter
+ */
+function showServiceFilter() {
+    var type = $('#filterService').val();
+}
+
+/**
+ * This is used to plot necessary charts
+ * @param pieChartData
+ * @param areaChartData
+ */
+function plotChart(pieChartData, areaChartData) {
+    if (pieChartData) {
+        plotPieChart( pieChartData );
+    }
+    plotAreaChart(areaChartData);
+}
 
 /**
  * This is used to get status reports
@@ -21,6 +68,7 @@ function getStatusReport() {
     reports = CacheUtil.get(REPORT_STATUS_KEY);
     if (reports) {
         generateReportTable();
+        generateStatistics();
         return;
     }
     reportTrail++;
@@ -29,6 +77,7 @@ function getStatusReport() {
         CacheUtil.set(REPORT_STATUS_KEY, reports); // implemented caching to reduce load on the server at every refresh
         reportTrail = 0;
         generateReportTable(); // populate table view.
+        generateStatistics();
     }).catch(function (err) {
         if (reportTrail > 3) {
             return;
@@ -36,28 +85,6 @@ function getStatusReport() {
         getStatusReport(); // get status report after few seconds
         console.log( 'ErrorStatusReporting=', err.responseJSON );
     })
-}
-
-/**
- * This is application initialization entry point.
- */
-function initApp() {
-    reportTrail = 0;
-    reportJob = CacheUtil.get(REPORT_JOB_KEY);
-    if (reportJob) {
-        getStatusReport(); // get status report after few seconds
-        return;
-    }
-    reportService.getReports().then( function (res) {
-        // process report here
-        reportJob = res.data;
-        CacheUtil.set(REPORT_JOB_KEY, reportJob); // implemented caching to reduce load on the server at every refresh
-        setTimeout(function () {
-            getStatusReport(); // get status report after few seconds
-        }, 3000);
-    } ).catch( function (err) {
-        console.log( 'ErrorReporting=', err.responseJSON );
-    } );
 }
 
 /**
@@ -158,6 +185,28 @@ function retryReport() {
 
 function ModalClose(id) {
     $('#' + id).modal('hide');
+}
+
+/**
+ * This is application initialization entry point.
+ */
+function initApp() {
+    reportTrail = 0;
+    reportJob = CacheUtil.get(REPORT_JOB_KEY);
+    if (reportJob) {
+        getStatusReport(); // get status report after few seconds
+        return;
+    }
+    reportService.getReports().then( function (res) {
+        // process report here
+        reportJob = res.data;
+        CacheUtil.set(REPORT_JOB_KEY, reportJob); // implemented caching to reduce load on the server at every refresh
+        setTimeout(function () {
+            getStatusReport(); // get status report after few seconds
+        }, 3000);
+    } ).catch( function (err) {
+        console.log( 'ErrorReporting=', err.responseJSON );
+    } );
 }
 
 initApp();

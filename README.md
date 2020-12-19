@@ -23,7 +23,8 @@ public/
     css/
     images/
     services/
-        apis/
+        /apis/
+    utils/    
     app.js
     index.html
 ```
@@ -38,7 +39,7 @@ server/
     dtos/
     routes/
     services/
-        apis/
+        /apis/
     utils/
     server.js
 ```
