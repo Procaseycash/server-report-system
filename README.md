@@ -40,7 +40,7 @@ server/
     services/
         apis/
     utils/
-    server.js/
+    server.js
 ```
 
 ## Proxy APIs
