@@ -1,4 +1,4 @@
-## Report System
+## Service Report System
 This application uses `express-generator` to scaffold the application structure which was later modified.
 
 ![Alt text](public/images/dashboard.png?raw=true "server-report-system")
