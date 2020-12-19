@@ -19,7 +19,7 @@ AppRoute.init(app); // initialize app routing
 
 const bootstrap = () => {
     try {
-        ApiHandlerService.getAccessToken(); // initialize server access token
+        ApiHandlerService.getAccessToken(); // initialize server to generate access token to be used.
     } catch ( e ) {
         console.log(`TOKEN_GENERATION_AT_LAUNCH_FAILED: ${e.message}`);
     }

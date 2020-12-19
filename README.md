@@ -43,6 +43,12 @@ server/
     server.js/
 ```
 
+## Proxy APIs
+The access token service is called internally when app initializes or when other proxy APIs are called for which token is yet to be generated.
+ 
+    1. http://localhost:3001/api/v1/reports
+    2. http://localhost:3001/api/v1/reports/:id/status
+    
 ### Environment
 Made use of environment system called `.env` to handle some global configuration for the server side through the `dotenv` library.
 
