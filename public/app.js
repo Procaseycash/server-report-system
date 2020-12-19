@@ -225,7 +225,7 @@ function initApp() {
         CacheUtil.set(REPORT_JOB_KEY, reportJob); // implemented caching to reduce load on the server at every refresh
         setTimeout(function () {
             getStatusReport(); // get status report after few seconds
-        }, 3000);
+        }, 5000);
     } ).catch( function (err) {
         $('#overlay').addClass('d-none');
         alert("Error Occurred while trying to get report job identification, please refresh... Thank you");
