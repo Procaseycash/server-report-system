@@ -1,9 +1,12 @@
 "use strict";
 
-$(function initApp() {
-    reportService.getReports().then(function (res) {
+function initApp() {
+    reportService.getReports().then( function (res) {
         // process report here
-    }).catch(function (err) {
-        console.log('ErrorReport=', err);
-    });
-})();
+        console.log('Response=', res);
+    } ).catch( function (err) {
+        console.log( 'ErrorReport=', err );
+    } );
+}
+
+initApp();
