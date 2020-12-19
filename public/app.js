@@ -108,7 +108,7 @@ function getStatusReport() {
             alert("Error Occurred while trying to get report status using job identification, please refresh... Thank you");
             return;
         }
-        getStatusReport(); // get status report after few seconds
+        getStatusReport(); // retry calling status again
     })
 }
 
