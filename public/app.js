@@ -1,5 +1,10 @@
 "use strict";
 
+//TODO: Graph representation and data overview
+//TODO: Loading View for the app
+//TODO: Error Checking Update.
+
+
 var reports = {
     service_reports: []
 };
@@ -73,7 +78,7 @@ function generateReportTable() {
             "<td>" + (new Date(report.requested_at).toUTCString()) + "</td>" +
             "<td>" + (new Date(report.completed_at).toUTCString()) + "</td>" +
             "<td>" + ( report.nodes.length ?
-            "<button class='btn btn-primary btn-sm' onclick='viewNodeDetail(" + JSON.stringify(report) + ")'> View Node" + "</button>"
+            "<button class='btn btn-primary btn-sm' onclick='viewNodeDetail(" + JSON.stringify(report) + ")'> View Detail" + "</button>"
             : 'No Nodes' ) +"</td>" +
             "</tr>"
         )
@@ -86,7 +91,7 @@ function generateReportTable() {
 function viewNodeDetail(report) {
 
     if (!report || !report.nodes) return;
-    $('#checksModalTitle').html(report.host.name + "'s Detail Report");
+    $('#checksModalTitle').html(report.host.name + "'s Node Checking Detail Report");
     var tableBody = $('#node-table-body');
 
     function getNodeChecks(node) {
